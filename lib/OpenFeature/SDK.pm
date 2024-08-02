@@ -18,8 +18,8 @@ sub set_provider($self, $provider, $domain = undef) {
 
 sub get_client($self, $domain) {
     OpenFeature::Client->new(
-        provider_registry => $self->{'provider_registry'},
-        domain => $domain,
+        $self->{'provider_registry'},
+        $domain,
     )
 }
 
