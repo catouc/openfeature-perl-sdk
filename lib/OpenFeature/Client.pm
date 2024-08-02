@@ -21,7 +21,12 @@ sub get_boolean_value(
     $evaluation_context = undef,
     $flag_evaluation_options = undef
 ) {
-    $self->get_boolean_details(@_[1..$#_])->{'value'}
+    $self->get_boolean_details(
+        $flag_key,
+        $default_value,
+        $evaluation_context,
+        $flag_evaluation_options
+    )->{'value'}
 }
 
 sub get_boolean_details(
