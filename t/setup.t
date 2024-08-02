@@ -1,3 +1,4 @@
+use v5.36;
 use Test::More;
 
 use OpenFeature::SDK;
@@ -17,5 +18,10 @@ is($test_sdk->{'provider_registry'}->get_default_provider()->{'foo'}, 'baz', 'Te
 my $in_memory_client = $test_sdk->get_client('in-memory');
 is($in_memory_client->get_boolean_value('foo', 1), 0, 'TestWithProvider');
 is($in_memory_client->{'domain'}, 'in-memory', 'TestClientDomain');
+
+# Hook stuff doesn't really work yet because I don't know how Perl datastructures work :)
+#$in_memory_client->add_hooks(['foo', 'bar']);
+#say $in_memory_client->{'hooks'};
+#is($in_memory_client->{'hooks'}, ['foo', 'bar'], 'TestHookAddingEmpty');
 
 done_testing();

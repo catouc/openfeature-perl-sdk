@@ -20,7 +20,8 @@ sub get_metadata($self) {
 }
 
 sub add_hooks($self, $new_hooks) {
-    $self->{'hooks'} = (@$self->{'hooks'}, @$new_hooks)
+    my $original_hooks = $self->{'hooks'};
+    $self->{'hooks'} = (@$original_hooks, @$new_hooks)
 }
 
 sub get_boolean_value(
