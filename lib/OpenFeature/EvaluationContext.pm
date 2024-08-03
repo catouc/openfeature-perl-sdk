@@ -12,3 +12,5 @@ sub new($class, $attributes, $targeting_key = undef) {
 sub merge($self, $new_context) {
     die 'not implemented'
 }
+
+1;
