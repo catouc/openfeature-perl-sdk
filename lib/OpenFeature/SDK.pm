@@ -56,7 +56,11 @@ sub set_evaluation_context($self, $new_context) {
     $self->{'evaluation_context'} = $new_context
 }
 
-=pod
+sub get_provider_metadata($self, $domain = undef) {
+    defined $domain
+        ? $self->{'provider_registry'}->get_provider($domain)->get_metadata()
+        : $self->{'provider_registry'}->get_default_provider()->get_metadata()
+}
 
 sub add_hooks($self, $new_hooks) {
     my $original_hooks = $self->{'hooks'};
