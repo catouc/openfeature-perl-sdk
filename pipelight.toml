@@ -8,3 +8,11 @@ commands = ["prove -I ./lib"]
 [[pipelines.triggers]]
 branches = ["*"]
 actions = ["pre-commit"]
+
+[[pipelines]]
+name =  "Manual Tests"
+
+[[pipelines.steps]]
+name = "test"
+commands = ["prove -I ./lib"]
+
