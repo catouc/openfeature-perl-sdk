@@ -30,17 +30,19 @@ sub clear_providers($self) {
     $self->{'providers'} = {}
 }
 
+sub shutdown_all_providers($self) {
+    foreach my $domain ( keys %{ $self->{'providers'} }) {
+            $self->{'providers'}{$domain}->shutdown();
+    }
+}
+
 =pod
 =head2 Things left to implement
 =over
 =item *
-shutdown
-=item *
 _get_evaluation_context (really... is used in _initialise_provider, maybe we can just make that more explicit)
 =item *
 _initialise_provider
-=item *
-_shutdown_provider
 =item *
 get_provider_status
 =item *

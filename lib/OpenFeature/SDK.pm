@@ -79,7 +79,6 @@ sub shutdown($self) {
 
 =head1 Things left to implement
 
-* shutdown
 
 * add_handler
 
