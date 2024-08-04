@@ -15,12 +15,12 @@ OpenFeature provides 5 distinct types of flags in: "Boolean", "String", "Integer
 
 The code to get a minimal example working is:
 
-C<<< use v5.36; >>>
-C<<< use OpenFeature::SDK; >>>
-C<<< my $openfeature_sdk = OpenFeature::SDK->new(); >>>
-C<<< $openfeature_sdk->set_provider($someProvider, 'someDomain') >>>
-C<<< my $openfeature_client = $openfeature_sdk->get_client('someDomain') >>>
-C<<< my $boolean_flag = $openfeature_client->get_boolean_value('flagName', 0)>>>
+    use v5.36;
+    use OpenFeature::SDK;
+    my $openfeature_sdk = OpenFeature::SDK->new();
+    $openfeature_sdk->set_provider($someProvider, 'someDomain');
+    my $openfeature_client = $openfeature_sdk->get_client('someDomain');
+    my $boolean_flag = $openfeature_client->get_boolean_value('flagName', 0);
 
 =cut
 
