@@ -20,8 +20,8 @@ is($in_memory_client->get_boolean_value('foo', 1), 0, 'TestWithProvider');
 is($in_memory_client->{'domain'}, 'in-memory', 'TestClientDomain');
 
 # Hook stuff doesn't really work yet because I don't know how Perl datastructures work :)
-#$in_memory_client->add_hooks(['foo', 'bar']);
-#say $in_memory_client->{'hooks'};
-#is($in_memory_client->{'hooks'}, ['foo', 'bar'], 'TestHookAddingEmpty');
+$in_memory_client->add_hooks(['foo', 'bar']);
+is($in_memory_client->{'hooks'}[0], 'foo', 'TestHookAddingEmpty');
+is($in_memory_client->{'hooks'}[1], 'bar', 'TestHookAddingEmpty');
 
 done_testing();

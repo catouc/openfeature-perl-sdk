@@ -58,15 +58,26 @@ sub set_evaluation_context($self, $new_context) {
 
 =pod
 
+sub add_hooks($self, $new_hooks) {
+    my $original_hooks = $self->{'hooks'};
+    $self->{'hooks'} = [@$original_hooks, @$new_hooks]
+}
+
+sub clear_hooks($self) {
+    $self->{'hooks'} = []
+}
+
+sub get_hooks($self) {
+    $self->{'hooks'}
+}
+
+sub shutdown($self) {
+    $self->{'provider_registry'}->shutdown_all_providers()
+}
+
+=pod
+
 =head1 Things left to implement
-
-* get_provider_metadata
-
-* add_hooks
-
-* clear_hooks
-
-* get_hooks
 
 * shutdown
 
