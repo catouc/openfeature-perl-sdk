@@ -83,6 +83,7 @@ sub shutdown($self) {
 
 =head1 Things left to implement
 
+=head2 Event handling stuff
 
 * add_handler
 
