@@ -1,5 +1,5 @@
 use v5.36;
-package OpenFeature::SDK;
+package OpenFeature::SDK v0.1.1;
 
 use OpenFeature::ProviderRegistry;
 use OpenFeature::Client;
