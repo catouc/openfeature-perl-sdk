@@ -5,15 +5,13 @@ use OpenFeature::ProviderRegistry;
 use OpenFeature::Client;
 use OpenFeature::EvaluationContext;
 
-=pod
+=encoding UTF-8
 
-=head1 OpenFeature SDK for Perl
+=head1 NAME
 
-The future of feature flagging is here! Which is an assortment of functions to call L<providers|https://openfeature.dev/specification/sections/providers> to get your flag details out.
+OpenFeature::SDK - OpenFeature SDK for Perl
 
-OpenFeature provides 5 distinct types of flags in: "Boolean", "String", "Integer", "Float" and "Object". The job of this SDK package is to provider the global configuration layer and access to the underlying Openfeature::Client package.
-
-The code to get a minimal example working is:
+=head1 SYNOPSIS
 
     use v5.36;
     use OpenFeature::SDK;
@@ -21,6 +19,17 @@ The code to get a minimal example working is:
     $openfeature_sdk->set_provider($someProvider, 'someDomain');
     my $openfeature_client = $openfeature_sdk->get_client('someDomain');
     my $boolean_flag = $openfeature_client->get_boolean_value('flagName', 0);
+
+=head1 DESCRIPTION
+
+The future of feature flagging is here! Which is an assortment of functions to
+call L<providers|https://openfeature.dev/specification/sections/providers> to
+get your flag details out.
+
+OpenFeature provides 5 distinct types of flags in: "Boolean", "String",
+"Integer", "Float" and "Object". The job of this SDK package is to provider the
+global configuration layer and access to the underlying L<Openfeature::Client>
+package.
 
 =cut
 
@@ -79,16 +88,36 @@ sub shutdown($self) {
     $self->{'provider_registry'}->shutdown_all_providers()
 }
 
-=pod
+1;
 
 =head1 Things left to implement
 
 =head2 Event handling stuff
 
-* add_handler
+=over
 
-* remove_handler
+=item * add_handler
+
+=item * remove_handler
+
+=back
+
+=head1 AUTHOR
+
+Philipp Böschen <catouc@philipp.boeschen.me>
+
+=head1 CONTRIBUTORS
+
+None so far.
+
+=head1 COPYRIGHT
+
+Copyright (c) 2024 the OpenFeature::SDK L</AUTHOR> and L</CONTRIBUTORS>
+as listed above.
+
+=head1 LICENSE
+
+This library is free software and may be distributed under the same terms
+as perl itself. See L<https://dev.perl.org/licenses/>.
 
 =cut
-
-1;
