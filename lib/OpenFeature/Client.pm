@@ -19,6 +19,10 @@ sub get_metadata($self) {
     { domain => $self->{'domain'} }
 }
 
+sub get_provider($self) {
+    $self->{'provider'}
+}
+
 sub add_hooks($self, $new_hooks) {
     my $original_hooks = $self->{'hooks'};
     $self->{'hooks'} = [@$original_hooks, @$new_hooks]
@@ -46,7 +50,20 @@ sub get_boolean_details(
     $evaluation_context,
     $flag_evaluation_options
 ) {
-    # pre-hooks
+    # maybe copy the evaluation_context? For now we don't need it I think.
+    for my $hook (@{$flag_evaluation_options->{'hooks'}}) {
+        if ($hook->can('before')) {
+             $evaluation_context = $hook->before({
+                flag_key => $flag_key,
+                flag_value_type => "boolean",
+                evaluation_context => $evaluation_context,
+                default_value => $default_value,
+                client_metadata => $self->get_metadata(),
+                provider_metadata => $self->get_provider(),
+             }, $flag_evaluation_options->{'hook_hints'})
+        }
+    }
+
     my $flag_details = $self->{'provider'}->resolve_boolean_details(
         $flag_key, $default_value, $evaluation_context,
     );
