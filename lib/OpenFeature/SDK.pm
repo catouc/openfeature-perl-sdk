@@ -28,7 +28,7 @@ get your flag details out.
 
 OpenFeature provides 5 distinct types of flags in: "Boolean", "String",
 "Integer", "Float" and "Object". The job of this SDK package is to provider the
-global configuration layer and access to the underlying L<Openfeature::Client>
+global configuration layer and access to the underlying L<OpenFeature::Client>
 package.
 
 =cut
