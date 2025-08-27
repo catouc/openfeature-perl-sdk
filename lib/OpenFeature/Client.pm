@@ -103,14 +103,14 @@ sub get_string_details(
     $flag_details
 }
 
-sub get_integer_value(
+sub get_number_value(
     $self,
     $flag_key,
     $default_value,
     $evaluation_context = undef,
     $flag_evaluation_options = undef
 ) {
-    $self->get_integer_details(
+    $self->get_number_details(
         $flag_key,
         $default_value,
         $evaluation_context,
@@ -118,7 +118,7 @@ sub get_integer_value(
     )->{'value'}
 }
 
-sub get_integer_details(
+sub get_number_details(
     $self,
     $flag_key,
     $default_value,
@@ -126,7 +126,7 @@ sub get_integer_details(
     $flag_evaluation_options
 ) {
     # pre-hooks
-    my $flag_details = $self->{'provider'}->resolve_integer_details(
+    my $flag_details = $self->{'provider'}->resolve_number_details(
         $flag_key, $default_value, $evaluation_context,
     );
     # post hooks

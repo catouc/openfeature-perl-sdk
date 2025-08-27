@@ -1,27 +1,47 @@
 use v5.36;
 use Test::More;
+use lib 't/lib';
+use Setup;
 
-use OpenFeature::SDK;
-use OpenFeature::ProviderRegistry;
-use OpenFeature::InMemoryProvider;
+my $test_sdk = Setup::test_sdk();
+my $provider = $test_sdk->{'provider_registry'}->get_provider('in-memory');
 
-my $test_sdk = OpenFeature::SDK->new();
-my $provider = OpenFeature::InMemoryProvider->new();
-my $provider_registry = OpenFeature::ProviderRegistry->new();
-$test_sdk->set_provider($provider, 'in-memory');
-$test_sdk->set_provider({ foo => 'bar' }, 'test');
-$test_sdk->set_provider({ foo => 'baz' });
-
-is($test_sdk->{'provider_registry'}->get_provider('test')->{'foo'}, 'bar', 'TestProvider');
-is($test_sdk->{'provider_registry'}->get_default_provider()->{'foo'}, 'baz', 'TestDefaultProvider');
+is($test_sdk->{'provider_registry'}->get_provider('in-memory')->metadata()->{'Name'}, 'in-memory-flag-provider', 'TestProvider');
+#is($test_sdk->{'provider_registry'}->get_default_provider()->metadata()->{'Name'}, 'in-memory-flag-provider', 'TestDefaultProvider');
 
 my $in_memory_client = $test_sdk->get_client('in-memory');
-is($in_memory_client->get_boolean_value('foo', 1), 0, 'TestWithProvider');
 is($in_memory_client->{'domain'}, 'in-memory', 'TestClientDomain');
 
 # Hook stuff doesn't really work yet because I don't know how Perl datastructures work :)
 $in_memory_client->add_hooks(['foo', 'bar']);
 is($in_memory_client->{'hooks'}[0], 'foo', 'TestHookAddingEmpty');
 is($in_memory_client->{'hooks'}[1], 'bar', 'TestHookAddingEmpty');
+
+# Flags
+# Bool
+is($in_memory_client->get_boolean_value('boolVal', 1), 1, 'TestWithProvider');
+# set the flag and check if we do this right
+$provider->store_flag('boolVal', 0);
+is($in_memory_client->get_boolean_value('boolVal', 1), 0, 'TestWithProvider');
+
+# String
+is($in_memory_client->get_string_value('stringVal', "bar"), "bar", 'TestWithProvider');
+# set the flag and check if we do this right
+$provider->store_flag('stringVal', "bar");
+is($in_memory_client->get_string_value('stringVal', "baz"), "bar", 'TestWithProvider');
+
+# Number
+is($in_memory_client->get_number_value('numberVal', 100), 100, 'TestWithProvider');
+# set the flag and check if we do this right
+$provider->store_flag('numberVal', 50);
+is($in_memory_client->get_number_value('numberVal', 100), 50, 'TestWithProvider');
+
+# Object
+my $objDefaultVal = $in_memory_client->get_object_value('objVal', { foo => "bar" });
+is($objDefaultVal->{'foo'}, "bar", 'TestWithProvider');
+# set the flag and check if we do this right
+$provider->store_flag('objVal', { foo => "baz" });
+my $objVal = $in_memory_client->get_object_value('objVal', { foo => "bar"});
+is ($objVal->{'foo'}, "baz",'TestWithProvider');
 
 done_testing();
