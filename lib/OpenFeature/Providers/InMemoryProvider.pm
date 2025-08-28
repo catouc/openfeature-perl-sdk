@@ -1,5 +1,5 @@
 use v5.36;
-package OpenFeature::InMemoryProvider;
+package OpenFeature::Providers::InMemoryProvider;
 
 use JSON::PP qw(decode_json);
 
