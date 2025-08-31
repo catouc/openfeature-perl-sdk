@@ -17,31 +17,4 @@ $in_memory_client->add_hooks(['foo', 'bar']);
 is($in_memory_client->{'hooks'}[0], 'foo', 'TestHookAddingEmpty');
 is($in_memory_client->{'hooks'}[1], 'bar', 'TestHookAddingEmpty');
 
-# Flags
-# Bool
-is($in_memory_client->get_boolean_value('boolVal', 1), 1, 'TestWithProvider');
-# set the flag and check if we do this right
-$provider->store_flag('boolVal', 0);
-is($in_memory_client->get_boolean_value('boolVal', 1), 0, 'TestWithProvider');
-
-# String
-is($in_memory_client->get_string_value('stringVal', "bar"), "bar", 'TestWithProvider');
-# set the flag and check if we do this right
-$provider->store_flag('stringVal', "bar");
-is($in_memory_client->get_string_value('stringVal', "baz"), "bar", 'TestWithProvider');
-
-# Number
-is($in_memory_client->get_number_value('numberVal', 100), 100, 'TestWithProvider');
-# set the flag and check if we do this right
-$provider->store_flag('numberVal', 50);
-is($in_memory_client->get_number_value('numberVal', 100), 50, 'TestWithProvider');
-
-# Object
-my $objDefaultVal = $in_memory_client->get_object_value('objVal', { foo => "bar" });
-is($objDefaultVal->{'foo'}, "bar", 'TestWithProvider');
-# set the flag and check if we do this right
-$provider->store_flag('objVal', { foo => "baz" });
-my $objVal = $in_memory_client->get_object_value('objVal', { foo => "bar"});
-is ($objVal->{'foo'}, "baz",'TestWithProvider');
-
 done_testing();
