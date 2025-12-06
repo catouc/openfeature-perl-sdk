@@ -63,6 +63,13 @@ my $objectVal = $in_memory_client->get_object_details('objectDetails', { foo => 
 is($objectVal->{'value'}{'baz'}, "foo", 'TestBooleanDetailsSet');
 is($objectVal->{'reason'}, "STATIC", 'TestObjectDetailsSetReason');
 
+###
+# Flagd testing
+###
+#
+my $flagd_provider = $test_sdk->{'provider_registry'}->get_provider('flagd');
+my $flagd_client   = $test_sdk->get_client('flagd');
 
+is($flagd_client->get_string_value('myStringFlag', "bar"), "val1", 'FlagdTestStringValue');
 
 done_testing();
